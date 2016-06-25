@@ -19,16 +19,16 @@ def main():
 	
 	clock = pygame.time.Clock()
 	
-	vertical = random.randint(-6, 7)
+	vertical = random.randint(-3, 4)
 	# Ball(screen tuple, radius, vx, vy)
-	ball = Ball(SCREENSIZE, 10, 15, vertical)
-	player = Player_Paddle(SCREENSIZE, 20, 80, 8)
-	computer = AI_Paddle(SCREENSIZE, 20, 80, 7)
+	ball = Ball(SCREENSIZE, 10, 6, vertical)
+	player = Player_Paddle(SCREENSIZE, 20, 80, 5)
+	computer = AI_Paddle(SCREENSIZE, 20, 80, 5)
 	
 	done = False
 
 	while not done:
-		clock.tick(15)
+		clock.tick(30)
 		
 		for event in pygame.event.get():
 			if event.type == QUIT:
