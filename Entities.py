@@ -39,10 +39,11 @@ class AI_Paddle():
 		self.rect = pygame.Rect(self.left, self.top, self.width, self.height)
 		
 	def update(self, ball):
-		if self.rect.centery > ball.rect.centery:
-			self.direction = -1
-		elif self.rect.centery < ball.rect.centery:
+		if self.rect.bottom < ball.rect.top:
 			self.direction = 1
+		elif self.rect.top > ball.rect.bottom:
+			self.direction = -1
+		
 			
 		if self.rect.bottom >= self.ybound - 1 and self.direction == 1:
 			self.rect.bottom = self.ybound - 1
@@ -71,8 +72,10 @@ class Ball():
 
 		if self.rect.colliderect(player.rect):
 			self.direction[0] = -1
+			self.vy += (self.rect.centery - player.rect.centery) // 8
 		if self.rect.colliderect(computer.rect):
 			self.direction[0] = 1
+			self.vy += (self.rect.centery - computer.rect.centery) // 8
 
 		if self.rect.top <= 0 or self.rect.bottom >= self.ybound - 1:
 			self.direction[1] *= -1
