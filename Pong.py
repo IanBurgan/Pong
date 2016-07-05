@@ -21,9 +21,9 @@ def main():
 	
 	vertical = random.randint(-3, 4)
 	# Ball(screen tuple, radius, vx, vy)
-	ball = Ball(SCREENSIZE, 10, 6, vertical)
-	player = Player_Paddle(SCREENSIZE, 20, 80, 5)
-	computer = AI_Paddle(SCREENSIZE, 20, 80, 5)
+	ball = Ball(SCREENSIZE, 10, 10, vertical)
+	player = Player_Paddle(SCREENSIZE, 20, 80, 7)
+	computer = AI_Paddle(SCREENSIZE, 20, 80, 7)
 	
 	done = False
 
@@ -47,7 +47,8 @@ def main():
 		DISPLAYSURF.fill(BLACK)
 		player.update()
 		computer.update(ball)
-		ball.update(player, computer)
+		if ball.update(player, computer) == -1:
+			break
 		pygame.draw.rect(DISPLAYSURF, WHITE, player.rect)
 		pygame.draw.rect(DISPLAYSURF, WHITE, computer.rect)
 		pygame.draw.rect(DISPLAYSURF, WHITE, ball.rect)

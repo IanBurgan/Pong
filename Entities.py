@@ -1,4 +1,5 @@
 import pygame
+from math import tan, radians
 
 class Player_Paddle():
 	def __init__(self, screen, width, height, vy):
@@ -67,15 +68,17 @@ class Ball():
 		self.rect = pygame.Rect(self.left, self.top, self.radius * 2, self.radius * 2)
 	
 	def update(self, player, computer):
-		self.rect.centerx += self.vx * self.direction[0]
-		self.rect.centery += self.vy * self.direction[1]
-
 		if self.rect.colliderect(player.rect):
 			self.direction[0] = -1
-			self.vy += (self.rect.centery - player.rect.centery) // 8
+			angle = ((self.rect.centery - player.rect.centery) // 2)
+			self.vy += int(self.vx * tan(radians(angle)))
 		if self.rect.colliderect(computer.rect):
 			self.direction[0] = 1
-			self.vy += (self.rect.centery - computer.rect.centery) // 8
+			angle = ((self.rect.centery - computer.rect.centery) // 2)
+			self.vy += int(self.vx * tan(radians(angle)))
 
 		if self.rect.top <= 0 or self.rect.bottom >= self.ybound - 1:
-			self.direction[1] *= -1
+			self.vy *= -1
+			
+		self.rect.centerx += self.vx * self.direction[0]
+		self.rect.centery += self.vy
